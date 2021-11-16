@@ -21,9 +21,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.CASTLECI_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.CASTLECI_AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.CASTLECI_AWS_REGION }}
+          aws-access-key-id: ${{ secrets.CASTLECI_DEVELOP_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.CASTLECI_DEVELOP_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.CASTLECI_DEVELOP_AWS_REGION }}
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -32,9 +32,9 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR (Postgres S3 Import Export)
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: postgres_s3_import_export
+          ECR_REPOSITORY: postgres-s3-import-export
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest postgres_s3_import_export
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
       - name: Logout of Amazon ECR
