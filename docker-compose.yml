@@ -21,6 +21,9 @@ services:
       - PGPASSWORD=postgres
       - SCHEMA=cumulus
       - S3_DB_EXPORT_DIR=cumulus/db_migration
+      # EXPORT_TABLES=table1 table2
+      # leave empty for all tables
+      - EXPORT_TABLES=acquirablefile download download_product productfile
       - MODE=export
 
     # command: ["tail", "-f", "/dev/null"]
